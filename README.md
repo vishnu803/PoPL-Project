@@ -3,10 +3,11 @@
 ## Using the Compiler
 
 ```
-lex lexer.l
-yacc -d -v parser.y
-gcc -ll -w y.tab.c
-./a.out<input1.c
+flex lexer.l 
+bison -d -v parser.y
+gcc -w parser.tab.c
+type input1.c | .\a.exe
+
 ```
 
 ## What is LEX?
