@@ -10,19 +10,19 @@ unary "++"|"--"
 
 %%
 
-"printVSA"                    { strcpy(yylval.nd_obj.name,(yytext)); return PRINTFF; }
-"scanVSA"                     { strcpy(yylval.nd_obj.name,(yytext)); return SCANFF; }
-"int"                       { strcpy(yylval.nd_obj.name,(yytext)); return INT; }
-"float"                     { strcpy(yylval.nd_obj.name,(yytext)); return FLOAT; }
+"show"                    { strcpy(yylval.nd_obj.name,(yytext)); return PRINTFF; }
+"grab"                     { strcpy(yylval.nd_obj.name,(yytext)); return SCANFF; }
+"num"                       { strcpy(yylval.nd_obj.name,(yytext)); return INT; }
+"deci"                     { strcpy(yylval.nd_obj.name,(yytext)); return FLOAT; }
 "char"                      { strcpy(yylval.nd_obj.name,(yytext)); return CHAR; }
-"void"                      { strcpy(yylval.nd_obj.name,(yytext)); return VOID; }
-"return"                    { strcpy(yylval.nd_obj.name,(yytext)); return RETURN; }
-"for"	                    { strcpy(yylval.nd_obj.name,(yytext)); return FOR; }
-"if"	                    { strcpy(yylval.nd_obj.name,(yytext)); return IF; }
-"else"	                    { strcpy(yylval.nd_obj.name,(yytext)); return ELSE; }
+"nully"                      { strcpy(yylval.nd_obj.name,(yytext)); return VOID; }
+"handover"                    { strcpy(yylval.nd_obj.name,(yytext)); return RETURN; }
+"trav"	                    { strcpy(yylval.nd_obj.name,(yytext)); return FOR; }
+"check"	                    { strcpy(yylval.nd_obj.name,(yytext)); return IF; }
+"otherwise"	                    { strcpy(yylval.nd_obj.name,(yytext)); return ELSE; }
 ^"#include"[ ]*<.+\.h>      { strcpy(yylval.nd_obj.name,(yytext)); return INCLUDE; }
-"true"                      { strcpy(yylval.nd_obj.name,(yytext)); return TRUE; }
-"false"                     { strcpy(yylval.nd_obj.name,(yytext)); return FALSE; }
+"T"                      { strcpy(yylval.nd_obj.name,(yytext)); return TRUE; }
+"F"                     { strcpy(yylval.nd_obj.name,(yytext)); return FALSE; }
 [-]?{digit}+                { strcpy(yylval.nd_obj.name,(yytext)); return NUMBER; }
 [-]?{digit}+\.{digit}{1,6}  { strcpy(yylval.nd_obj.name,(yytext)); return FLOAT_NUM; }
 {alpha}({alpha}|{digit})*   { strcpy(yylval.nd_obj.name,(yytext)); return ID; }
