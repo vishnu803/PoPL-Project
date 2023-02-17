@@ -43,7 +43,7 @@ The input to the YACC is stream of tokens produced by the LEX file. It translate
 flex lexer.l 
 bison -d -v parser.y
 gcc -w parser.tab.c
-type input1.c | .\a.exe
+type input.vsa | .\a.exe
 
 ```
 
