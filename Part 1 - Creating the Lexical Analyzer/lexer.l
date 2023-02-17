@@ -11,8 +11,8 @@ unary "++"|"--"
 
 %%
 
-"printf"                    { return PRINTFF; }
-"scanf"                     { return SCANFF; }
+"printVSA"                    { return PRINTFF; }
+"scanVSA"                     { return SCANFF; }
 "int"                       { return INT; }
 "float"                     { return FLOAT; }
 "char"                      { return CHAR; }
