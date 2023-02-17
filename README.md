@@ -1,13 +1,13 @@
-# Frontend Phase of a C Compiler
+# VSA Compiler
 
 
 ## Basic idea
 
 The basic idea here is to use LEX and YACC to design a compiler. 
-The input to the LEX is a set of regular expressions in addition to actions. The output here is a table driven scanner called lex.yy.c.
-The input to the YACC is stream of tokens produced by the LEX file. It translates a given Context Free Grammar (CFG) specifications into a C implementation y.tab.c.
+The input to the LEX is a set of regular expressions in addition to actions. The output here is a table driven scanner called lex.yy.c
+The input to the YACC is stream of tokens produced by the LEX file. It translates a given Context Free Grammar (CFG) specifications into a C implementation y.tab.c
 
-## Building a C Compiler Using Lex and Yacc
+## Building the VSA Compiler Using Lex and Yacc
 
 ### Features of the Compiler
 
@@ -43,7 +43,7 @@ The input to the YACC is stream of tokens produced by the LEX file. It translate
 flex lexer.l 
 bison -d -v parser.y
 gcc -w parser.tab.c
-type input1.c | .\a.exe
+type input1.vsa | .\a.exe
 
 ```
 
