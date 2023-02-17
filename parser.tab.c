@@ -112,7 +112,7 @@
 	char errors[10][100];
 	char reserved[10][10] = {"int", "float", "char", "void", "if", "else", "for", "main", "return", "include"};
 	char icg[50][100];
-
+	int error=0;
 	struct node { 
 		struct node *left; 
 		struct node *right; 
@@ -2229,6 +2229,7 @@ int main() {
     printf("\n\n");
 	
 	printf("\t\t\t\t STEP 1: LEXICAL ANALYSIS  \n\n\n");
+	
 	printf("Processing....\n");
 	printf("\nLexical analysis completed with no errors\n");
 
@@ -2236,7 +2237,9 @@ int main() {
 	printf("\n\nSYMBOL   \t\t\tDATATYPE   \t\t\tTYPE   \t\t\t\tLINE NUMBER \n");
 	printf("_____________________________________________________________________________________________________________\n\n");
 	int i=0;
+	
 	for(i=0; i<count; i++) {
+		// line_ = symbol_table[i].line_no;
 		printf("%s\t\t\t\t%s\t\t\t\t%s\t\t\t\t%d\t\t\t\n", symbol_table[i].id_name, symbol_table[i].data_type, symbol_table[i].type, symbol_table[i].line_no);
 	}
 	
@@ -2249,7 +2252,11 @@ int main() {
 	printf("\n\n");
 	printf("\t\t\t\t STEP 2: SYNTAX ANALYSIS \n\n");
 	printf("Processing....\n\n");
-	printf("Syntax analysis is completed with no errors\n\n");
+	if(error){
+		printf("Syntax error found ");
+		// printf(line_);
+	}else
+		printf("Syntax analysis is completed with no errors\n\n");
 
 	print_tree(head); 
 	printf("\n\n\n\n");
@@ -2398,7 +2405,8 @@ struct node* mknode(struct node *left, struct node *right, char *token) {
 
 void print_tree(struct node* tree) {
 	// print_tree_util(tree, 0);
-	printf("\n\n Displaying Inorder Traversal of Parse Tree \n\n");
+	if(error==0)
+		printf("\n\n Displaying Inorder Traversal of Parse Tree \n\n");
 	print_inorder(tree);
 }
 
@@ -2430,4 +2438,5 @@ void insert_type() {
 
 void yyerror(const char* msg) {
     fprintf(stderr, "%s\n", msg);
+	error=1;
 }
