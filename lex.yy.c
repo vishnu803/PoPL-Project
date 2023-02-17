@@ -469,7 +469,7 @@ char *yytext;
 #line 1 "lexer.l"
 #define INITIAL 0
 #line 2 "lexer.l"
-    #include "parser.tab.h"
+    #include "parser_final.tab.h"
     int countn=0;
 #line 475 "lex.yy.c"
 
