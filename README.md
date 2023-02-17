@@ -4,9 +4,9 @@
 
 ```
 flex lexer.l 
-bison -d -v parser.y
-gcc -w parser.tab.c
-type input1.c | .\a.exe
+bison -d -v parser_final.y
+gcc -w parser_final.tab.c
+type input1.vsa | .\a.exe
 
 ```
 
