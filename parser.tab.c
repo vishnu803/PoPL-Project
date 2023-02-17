@@ -2227,22 +2227,33 @@ yyreturn:
 int main() {
     yyparse();
     printf("\n\n");
-	printf("\t\t\t\t\t\t\t\t PHASE 1: LEXICAL ANALYSIS \n\n");
-	printf("\nSYMBOL   DATATYPE   TYPE   LINE NUMBER \n");
-	printf("_______________________________________\n\n");
+	
+	printf("\t\t\t\t STEP 1: LEXICAL ANALYSIS  \n\n\n");
+	printf("Processing....\n");
+	printf("\nLexical analysis completed with no errors\n");
+
+	printf("\n\n\t\t\t\t\t SYMBOL TABLE \n");
+	printf("\n\nSYMBOL   \t\t\tDATATYPE   \t\t\tTYPE   \t\t\t\tLINE NUMBER \n");
+	printf("_____________________________________________________________________________________________________________\n\n");
 	int i=0;
 	for(i=0; i<count; i++) {
-		printf("%s\t%s\t%s\t%d\t\n", symbol_table[i].id_name, symbol_table[i].data_type, symbol_table[i].type, symbol_table[i].line_no);
+		printf("%s\t\t\t\t%s\t\t\t\t%s\t\t\t\t%d\t\t\t\n", symbol_table[i].id_name, symbol_table[i].data_type, symbol_table[i].type, symbol_table[i].line_no);
 	}
+	
+	
+
 	for(i=0;i<count;i++) {
 		free(symbol_table[i].id_name);
 		free(symbol_table[i].type);
 	}
 	printf("\n\n");
-	printf("\t\t\t\t\t\t\t\t PHASE 2: SYNTAX ANALYSIS \n\n");
+	printf("\t\t\t\t STEP 2: SYNTAX ANALYSIS \n\n");
+	printf("Processing....\n\n");
+	printf("Syntax analysis is completed with no errors\n\n");
+
 	print_tree(head); 
 	printf("\n\n\n\n");
-	printf("\t\t\t\t\t\t\t\t PHASE 3: SEMANTIC ANALYSIS \n\n");
+	printf("\t\t\t\t STEP 3: SEMANTIC ANALYSIS \n\n");
 	if(sem_errors>0) {
 		printf("Semantic analysis completed with %d errors\n", sem_errors);
 		for(int i=0; i<sem_errors; i++){
@@ -2252,7 +2263,7 @@ int main() {
 		printf("Semantic analysis completed with no errors");
 	}
 	printf("\n\n");
-	printf("\t\t\t\t\t\t\t   PHASE 4: INTERMEDIATE CODE GENERATION \n\n");
+	printf("\t\t\t\t  STEP 4: INTERMEDIATE CODE GENERATION \n\n");
 	for(int i=0; i<ic_idx; i++){
 		printf("%s", icg[i]);
 	}
@@ -2387,7 +2398,7 @@ struct node* mknode(struct node *left, struct node *right, char *token) {
 
 void print_tree(struct node* tree) {
 	// print_tree_util(tree, 0);
-	printf("\n\nInorder traversal of the Parse Tree is: \n\n");
+	printf("\n\n Displaying Inorder Traversal of Parse Tree \n\n");
 	print_inorder(tree);
 }
 

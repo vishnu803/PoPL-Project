@@ -10,8 +10,8 @@ unary "++"|"--"
 
 %%
 
-"printf"                    { strcpy(yylval.nd_obj.name,(yytext)); return PRINTFF; }
-"scanf"                     { strcpy(yylval.nd_obj.name,(yytext)); return SCANFF; }
+"printVSA"                    { strcpy(yylval.nd_obj.name,(yytext)); return PRINTFF; }
+"scanVSA"                     { strcpy(yylval.nd_obj.name,(yytext)); return SCANFF; }
 "int"                       { strcpy(yylval.nd_obj.name,(yytext)); return INT; }
 "float"                     { strcpy(yylval.nd_obj.name,(yytext)); return FLOAT; }
 "char"                      { strcpy(yylval.nd_obj.name,(yytext)); return CHAR; }
