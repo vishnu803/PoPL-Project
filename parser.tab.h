@@ -40,36 +40,42 @@
       know about them.  */
    enum yytokentype {
      VOID = 258,
-     CHARACTER = 259,
-     PRINTFF = 260,
-     SCANFF = 261,
-     INT = 262,
-     FLOAT = 263,
-     CHAR = 264,
-     FOR = 265,
-     IF = 266,
-     ELSE = 267,
-     TRUE = 268,
-     FALSE = 269,
-     NUMBER = 270,
-     FLOAT_NUM = 271,
-     ID = 272,
-     LE = 273,
-     GE = 274,
-     EQ = 275,
-     NE = 276,
-     GT = 277,
-     LT = 278,
-     AND = 279,
-     OR = 280,
-     STR = 281,
-     ADD = 282,
-     MULTIPLY = 283,
-     DIVIDE = 284,
-     SUBTRACT = 285,
-     UNARY = 286,
-     INCLUDE = 287,
-     RETURN = 288
+     SWITCH = 259,
+     CASE = 260,
+     BREAK = 261,
+     DEFAULT = 262,
+     WHILE = 263,
+     CHARACTER = 264,
+     PRINTFF = 265,
+     SCANFF = 266,
+     INT = 267,
+     FLOAT = 268,
+     CHAR = 269,
+     FOR = 270,
+     IF = 271,
+     ELSE = 272,
+     TRUE = 273,
+     FALSE = 274,
+     NUMBER = 275,
+     FLOAT_NUM = 276,
+     ID = 277,
+     LE = 278,
+     GE = 279,
+     EQ = 280,
+     NE = 281,
+     GT = 282,
+     LT = 283,
+     AND = 284,
+     OR = 285,
+     STR = 286,
+     ADD = 287,
+     MULTIPLY = 288,
+     DIVIDE = 289,
+     SUBTRACT = 290,
+     UNARY = 291,
+     INCLUDE = 292,
+     RETURN = 293,
+     ELIF = 294
    };
 #endif
 
@@ -80,7 +86,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 48 "parser_final.y"
+#line 48 "parser.y"
  struct var_name { 
 			char name[100]; 
 			struct node* nd;
@@ -95,7 +101,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 99 "parser_final.tab.h"
+#line 105 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

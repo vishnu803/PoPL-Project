@@ -1,0 +1,40 @@
+#include<stdio.h>
+#include<string.h>
+
+num vsa(){
+   num a = 5;
+   until(a>=0){
+        a--;
+   }
+   trav(num i = 0; i<5; ){
+        show("Hello");
+        i++;
+   }
+   trav(; i<5; ){
+        show("Hello");
+        i++;
+   }
+   trav(i = 0; i<5; i++){
+        show("Hello");
+        i++;
+   }
+   check(a==5){
+        show("Hurray!!");
+   }check_ow(a<0){
+        show("awww!!");
+   }ow{
+        show("neutral..");
+   }
+   route (a)
+    {
+    path 2:
+        show("Hello moto!");
+        break;
+    path 3:
+        show("Hello moto!");
+        break;
+    default:
+        break;
+    }
+   reply 0;
+}

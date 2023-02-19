@@ -35,7 +35,7 @@
 	int label=0;
 	char buff[100];
 	char errors[10][100];
-	char reserved[10][10] = {"num", "deci", "char", "nully", "check", "otherwise", "trav", "vsa", "handover", "include"};
+	char reserved[10][10] = {"num", "deci", "char", "nthg", "check", "otherwise", "trav", "vsa", "reply", "include", "route", "break", "default", "path"};
 	int line_;
 	struct node { 
 		struct node *left; 
@@ -57,8 +57,8 @@
 		} nd_obj2; 
 	} 
 %token VOID 
-%token <nd_obj> CHARACTER PRINTFF SCANFF INT FLOAT CHAR FOR IF ELSE TRUE FALSE NUMBER FLOAT_NUM ID LE GE EQ NE GT LT AND OR STR ADD MULTIPLY DIVIDE SUBTRACT UNARY INCLUDE RETURN 
-%type <nd_obj> headers vsa body return datatype statement arithmetic relop program else condition
+%token <nd_obj> SWITCH CASE BREAK DEFAULT WHILE CHARACTER PRINTFF SCANFF INT FLOAT CHAR FOR IF ELSE TRUE FALSE NUMBER FLOAT_NUM ID LE GE EQ NE GT LT AND OR STR ADD MULTIPLY DIVIDE SUBTRACT UNARY INCLUDE RETURN ELIF 
+%type <nd_obj> headers vsa body return datatype statement arithmetic relop program condition aux1 elif alpha case
 %type <nd_obj2> init value expression
 
 %%
@@ -81,29 +81,49 @@ datatype: INT { insert_type(); }
 | VOID { insert_type(); }
 ;
 
-body: FOR { add('K'); } '(' statement ';' condition ';' statement ')' '{' body '}' { 
+body: FOR { add('K'); } '(' aux1 ';' condition ';' aux1 ')' '{' body '}' { 
 	struct node *temp = mknode($6.nd, $8.nd, "CONDITION"); 
 	struct node *temp2 = mknode($4.nd, temp, "CONDITION"); 
 	$$.nd = mknode(temp2, $11.nd, $1.name); 
 }
-| IF { add('K'); } '(' condition ')' '{' body '}' else { 
-	struct node *iff = mknode($4.nd, $7.nd, $1.name); 
-	$$.nd = mknode(iff, $9.nd, "check-otherwise"); 
+| WHILE { add('K'); } '(' condition ')' '{' body '}'{
+	$$.nd = mknode($4.nd, $7.nd, $1.name); 
 }
+| IF { add('K'); } '(' condition ')' '{' body '}' elif { 
+	struct node *iff = mknode($4.nd, $7.nd, $1.name); 
+	$$.nd = mknode(iff, $9.nd, "if-elif-else"); 
+}
+|SWITCH{ add('K'); } '(' alpha ')' '{' case '}'
 | statement ';' { $$.nd = $1.nd; }
 | body body { $$.nd = mknode($1.nd, $2.nd, "statements"); }
 | PRINTFF { add('K'); } '(' STR ')' ';' { $$.nd = mknode(NULL, NULL, "show"); }
-| SCANFF { add('K'); } '(' STR ',' '&' ID ')' ';' { $$.nd = mknode(NULL, NULL, "grab"); }
+| SCANFF { add('K'); } '(' STR ',' '&' ID ')' ';' { $$.nd = mknode(NULL, NULL, "get"); }
+|{ $$.nd = NULL; }
 ;
 
-else: ELSE { add('K'); } '{' body '}' { $$.nd = mknode(NULL, $4.nd, $1.name); }
-| { $$.nd = NULL; }
+alpha: NUMBER
+|ID
+;
+
+case: CASE{add('K'); } NUMBER ':' body BREAK ';' case
+|DEFAULT{add('K'); } ':' body BREAK';'
+;
+
+aux1: statement { $$.nd = mknode($1.nd, NULL, "aux1"); }
+|{ $$.nd = mknode(NULL, NULL, "aux1");}
+;
+
+elif: ELIF {add('K'); }  '(' condition ')' '{' body '}' elif { 
+	struct node *elif = mknode($4.nd, $7.nd, $1.name); 
+	$$.nd = mknode(elif, $9.nd, "elif"); 
+ }
+|ELSE { add('K'); } '{' body '}' { $$.nd = mknode(NULL, $4.nd, $1.name); }
+|{ $$.nd = NULL; }
 ;
 
 condition: value relop value { $$.nd = mknode($1.nd, $3.nd, $2.name); }
 | TRUE { add('K'); $$.nd = NULL; }
 | FALSE { add('K'); $$.nd = NULL; }
-| { $$.nd = NULL; }
 ;
 
 statement: datatype ID { add('V'); } init { 
@@ -259,8 +279,7 @@ value: NUMBER { strcpy($$.name, $1.name); sprintf($$.type, "num"); add('C'); $$.
 | ID { strcpy($$.name, $1.name); char *id_type = get_type($1.name); sprintf($$.type, id_type); check_declaration($1.name); $$.nd = mknode(NULL, NULL, $1.name); }
 ;
 
-return: RETURN { add('K'); } value ';' { check_return_type($3.name); $1.nd = mknode(NULL, NULL, "handover"); $$.nd = mknode($1.nd, $3.nd, "RETURN"); }
-| { $$.nd = NULL; }
+return: RETURN { add('K'); } value ';' { check_return_type($3.name); $1.nd = mknode(NULL, NULL, "reply"); $$.nd = mknode($1.nd, $3.nd, "RETURN"); }
 ;
 
 %%
@@ -272,7 +291,7 @@ int main() {
 	printf("\t\t\t\t STEP 1: LEXICAL ANALYSIS  \n\n\n");
 	
 	printf("Processing....\n");
-	sleep(5);
+	sleep(1);
 	printf("\nLexical analysis completed with no errors\n");
 
 	printf("\n\n\t\t\t\t\t SYMBOL TABLE \n");
@@ -294,7 +313,7 @@ int main() {
 	printf("\n\n");
 	printf("\t\t\t\t STEP 2: SYNTAX ANALYSIS \n\n");
 	printf("Processing....\n\n");
-	sleep(5);
+	sleep(1);
 	if(error){
 		printf("Syntax error found in line no. ");
 		printf("%d",line_);
@@ -311,7 +330,7 @@ int main() {
 		}
 	} else {
 		printf("Processing....");
-		sleep(5);
+		sleep(1);
 		printf("\n\nSemantic analysis completed with no errors\n\n");
 	}
 	

@@ -1,5 +1,5 @@
 %{
-    #include "parser_final.tab.h"
+    #include "parser.tab.h"
     int countn=0;
 %}
 %option yylineno
@@ -11,15 +11,21 @@ unary "++"|"--"
 %%
 
 "show"                    { strcpy(yylval.nd_obj.name,(yytext)); return PRINTFF; }
-"grab"                     { strcpy(yylval.nd_obj.name,(yytext)); return SCANFF; }
+"get"                     { strcpy(yylval.nd_obj.name,(yytext)); return SCANFF; }
 "num"                       { strcpy(yylval.nd_obj.name,(yytext)); return INT; }
 "deci"                     { strcpy(yylval.nd_obj.name,(yytext)); return FLOAT; }
 "char"                      { strcpy(yylval.nd_obj.name,(yytext)); return CHAR; }
-"nully"                      { strcpy(yylval.nd_obj.name,(yytext)); return VOID; }
-"handover"                    { strcpy(yylval.nd_obj.name,(yytext)); return RETURN; }
+"nthg"                      { strcpy(yylval.nd_obj.name,(yytext)); return VOID; }
+"reply"                    { strcpy(yylval.nd_obj.name,(yytext)); return RETURN; }
 "trav"	                    { strcpy(yylval.nd_obj.name,(yytext)); return FOR; }
+"until"                     {strcpy(yylval.nd_obj.name,(yytext)); return WHILE;}
+"route"                     {strcpy(yylval.nd_obj.name,(yytext)); return SWITCH;}
+"break"                     {strcpy(yylval.nd_obj.name,(yytext)); return BREAK;}
+"default"                     {strcpy(yylval.nd_obj.name,(yytext)); return DEFAULT;}
+"path"                     {strcpy(yylval.nd_obj.name,(yytext)); return CASE;}
 "check"	                    { strcpy(yylval.nd_obj.name,(yytext)); return IF; }
-"otherwise"	                    { strcpy(yylval.nd_obj.name,(yytext)); return ELSE; }
+"check_ow"	                    { strcpy(yylval.nd_obj.name,(yytext)); return ELIF; }
+"ow"                        { strcpy(yylval.nd_obj.name,(yytext)); return ELSE; }   
 ^"#include"[ ]*<.+\.h>      { strcpy(yylval.nd_obj.name,(yytext)); return INCLUDE; }
 "T"                      { strcpy(yylval.nd_obj.name,(yytext)); return TRUE; }
 "F"                     { strcpy(yylval.nd_obj.name,(yytext)); return FALSE; }
