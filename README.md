@@ -53,34 +53,44 @@ type input.vsa | .\a.exe
 #include<stdio.h>
 #include<string.h>
 
-int main() {
-    int a;
-    int x=1;
-    int y=2;
-    int z=3;
-    x=3;
-    y=10;
-    z=5;
-    if(x>5) {
-        for(int k=0; k<10; k++) {
-            y = x+3;
-            printf("Hello!");
-        }
-    } else {
-        int idx = 1;
+num vsa(){
+   num a = 5;
+   until(a>=0){
+        a--;
+   }
+   trav(num i = 0; i<5; ){
+        show("Hello");
+        i++;
+   }
+   trav(; i<5; ){
+        show("Hello");
+        i++;
+   }
+   trav(i = 0; i<5; i++){
+        show("Hello");
+        i++;
+   }
+   check(a==5){
+        show("Hurray!!");
+   }check_ow(a<0){
+        show("awww!!");
+   }ow{
+        show("neutral..");
+   }
+   route (a)
+    {
+    path 2:
+        show("Hello moto!");
+        break;
+    path 3:
+        show("Hello moto!");
+        break;
+    default:
+        break;
     }
-    for(int i=0; i<10; i++) {
-        printf("Hello World!");
-        scanf("%d", &x);
-        if (x>5) {
-            printf("Hi");
-        }
-        for(int j=0; j<z; j++) {
-            a=1;
-        }
-    } 
-    return 1;
+   reply 0;
 }
+
 ```
 
 ### Symbol Table
