@@ -93,7 +93,9 @@ body: FOR { add('K'); } '(' aux1 ';' condition ';' aux1 ')' '{' body '}' {
 	struct node *iff = mknode($4.nd, $7.nd, $1.name); 
 	$$.nd = mknode(iff, $9.nd, "if-elif-else"); 
 }
-|SWITCH{ add('K'); } '(' alpha ')' '{' case '}'
+|SWITCH{ add('K'); } '(' alpha ')' '{' case '}'{
+	$$.nd = mknode($4.nd, $7.nd, $1.name); 
+}
 | statement ';' { $$.nd = $1.nd; }
 | body body { $$.nd = mknode($1.nd, $2.nd, "statements"); }
 | PRINTFF { add('K'); } '(' STR ')' ';' { $$.nd = mknode(NULL, NULL, "show"); }
@@ -101,12 +103,15 @@ body: FOR { add('K'); } '(' aux1 ';' condition ';' aux1 ')' '{' body '}' {
 |{ $$.nd = NULL; }
 ;
 
-alpha: NUMBER
-|ID
+alpha: NUMBER {$$.nd = mknode(NULL, NULL, $1.name); }
+|ID {$$.nd = mknode(NULL, NULL, $1.name); }
 ;
 
-case: CASE{add('K'); } NUMBER ':' body BREAK ';' case
-|DEFAULT{add('K'); } ':' body BREAK';'
+case: CASE{add('K'); } NUMBER ':' body BREAK ';' case {
+	struct node *temp= mknode($5.nd, $6.nd, $1.name); 
+	$$.nd = mknode(temp, $8.nd, "caselist");
+}
+|DEFAULT{add('K'); } ':' body BREAK';' {$$.nd = mknode($4.nd, $5.nd, $1.name);  }
 ;
 
 aux1: statement { $$.nd = mknode($1.nd, NULL, "aux1"); }
